@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import { FaSearch } from "react-icons/fa";
 import Trending from "../components/Trending";
+import NowPlaying from "../components/NowPlaying";
 
 const Home = () => {
   const { fetchMovies, movies } = useContext(GlobalContext);
@@ -73,6 +74,7 @@ const Home = () => {
       </div>
       <div>
         <Trending />
+        <NowPlaying />
       </div>
     </>
   );

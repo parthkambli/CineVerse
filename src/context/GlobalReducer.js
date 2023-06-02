@@ -13,6 +13,12 @@ export default (state, action) => {
         trendingMovies: action.payload,
         loading: false,
       };
+    case "NOW_PLAYING":
+      return {
+        ...state,
+        nowPlaying: action.payload,
+        loading: false,
+      };
     case "FETCH_GENRE":
       return {
         ...state,

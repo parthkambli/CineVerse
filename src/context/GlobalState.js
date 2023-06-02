@@ -5,8 +5,9 @@ import axios from "axios";
 // Initial State
 const initialState = {
   movies: [],
-  genres: [],
   trendingMovies: [],
+  nowPlaying: [],
+  genres: [],
   loading: true,
 };
 
@@ -49,6 +50,21 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
+  const fetchNowPlaying = async (show) => {
+    const res = await axios.get(`${API_URL}${show}`, {
+      params: {
+        api_key: process.env.REACT_APP_API_KEY,
+      },
+      headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
+      },
+    });
+    dispatch({
+      type: "NOW_PLAYING",
+      payload: res.data.results,
+    });
+  };
+
   const fetchGenres = async () => {
     const res = await axios.get(`${API_URL}/genre/movie/list`, {
       params: {
@@ -69,11 +85,13 @@ export const GlobalProvider = ({ children }) => {
       value={{
         movies: state.movies,
         trendingMovies: state.trendingMovies,
+        nowPlaying: state.nowPlaying,
         genres: state.genres,
         loading: state.loading,
         fetchMovies,
         fetchGenres,
         fetchTrendingMovies,
+        fetchNowPlaying,
       }}
     >
       {children}
