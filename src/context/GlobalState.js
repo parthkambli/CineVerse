@@ -7,6 +7,7 @@ const initialState = {
   movies: [],
   trendingMovies: [],
   nowPlaying: [],
+  topRated: [],
   genres: [],
   loading: true,
 };
@@ -65,6 +66,21 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
+  const fetchTopRated = async (show) => {
+    const res = await axios.get(`${API_URL}/${show}/top_rated`, {
+      params: {
+        api_key: process.env.REACT_APP_API_KEY,
+      },
+      headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
+      },
+    });
+    dispatch({
+      type: "TOP_RATED",
+      payload: res.data.results,
+    });
+  };
+
   const fetchGenres = async () => {
     const res = await axios.get(`${API_URL}/genre/movie/list`, {
       params: {
@@ -86,12 +102,14 @@ export const GlobalProvider = ({ children }) => {
         movies: state.movies,
         trendingMovies: state.trendingMovies,
         nowPlaying: state.nowPlaying,
+        topRated: state.topRated,
         genres: state.genres,
         loading: state.loading,
         fetchMovies,
         fetchGenres,
         fetchTrendingMovies,
         fetchNowPlaying,
+        fetchTopRated,
       }}
     >
       {children}

@@ -19,6 +19,12 @@ export default (state, action) => {
         nowPlaying: action.payload,
         loading: false,
       };
+    case "TOP_RATED":
+      return {
+        ...state,
+        topRated: action.payload,
+        loading: false,
+      };
     case "FETCH_GENRE":
       return {
         ...state,

@@ -98,7 +98,7 @@ const Slider = ({ movies, deviceType }) => {
                 </div>
               </div>
             </div>
-            <h4 className="text-center px-4">{movie.title}</h4>
+            <h4 className="text-center px-4">{movie.title || movie.name}</h4>
           </div>
         ))}
     </Carousel>
