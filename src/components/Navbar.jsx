@@ -64,7 +64,7 @@ const Navbar = () => {
               style={{
                 backgroundImage:
                   "linear-gradient(to bottom right, #FF2E06, #F1D00A)",
-                color: "#ffffff",
+                color: "#F1F1F1",
                 border: "1px solid white",
                 cursor: "pointer",
               }}

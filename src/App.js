@@ -1,11 +1,16 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
+import { GlobalProvider } from "./context/GlobalState";
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-    </div>
+    <GlobalProvider>
+      <div className="App">
+        <Navbar />
+        <Home />
+      </div>
+    </GlobalProvider>
   );
 }
 
