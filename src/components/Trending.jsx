@@ -25,12 +25,14 @@ const Trending = ({ genres }) => {
 
   return (
     <div className="container">
-      <div className="d-flex justify-content-between align-items-center">
-        <h3
-          style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "bold" }}
-        >
-          Trending
-        </h3>
+      <div className="px-3 d-flex justify-content-between align-items-end">
+        <div className="align-items-end">
+          <h3
+            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "bold" }}
+          >
+            Trending
+          </h3>
+        </div>
         <div className="justify-content-end">
           <div
             className="btn-group rounded-pill p-1 m-2 "
@@ -124,7 +126,7 @@ const Trending = ({ genres }) => {
               }
               onClick={handleShowToggle}
             >
-              Movies
+              Movie
             </button>
             <button
               type="button"
