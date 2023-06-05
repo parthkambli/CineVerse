@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../assets/Logo.png";
 import { FaSearch } from "react-icons/fa";
 
@@ -9,9 +10,9 @@ const Navbar = () => {
       style={{ backgroundColor: "#082032" }}
     >
       <div className="container">
-        <a
+        <Link
           className="navbar-brand p-0"
-          href="/"
+          to="/"
           style={{ display: "flex", alignItems: "flex-end" }}
         >
           <img src={logo} alt="logo" height="35px" width="35px" />
@@ -26,7 +27,7 @@ const Navbar = () => {
           >
             INEVERSE
           </span>
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"

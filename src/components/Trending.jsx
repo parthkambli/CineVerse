@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Slider from "./Slider";
 import { GlobalContext } from "../context/GlobalState";
 
-const Trending = ({ genres }) => {
+const Trending = () => {
   const { fetchTrendingMovies, trendingMovies } = useContext(GlobalContext);
 
   const [timeWindow, setTimeWindow] = useState("day");
@@ -28,7 +28,10 @@ const Trending = ({ genres }) => {
       <div className="px-3 d-flex justify-content-between align-items-end">
         <div className="align-items-end">
           <h3
-            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "bold" }}
+            style={{
+                  fontFamily: "Playfair Display, serif",
+                  fontWeight: "bold",
+                }}
           >
             Trending
           </h3>
@@ -158,7 +161,7 @@ const Trending = ({ genres }) => {
           </div>
         </div>
       </div>
-      <Slider movies={trendingMovies} />
+      <Slider movies={trendingMovies} show={show} />
     </div>
   );
 };

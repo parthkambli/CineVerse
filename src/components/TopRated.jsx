@@ -20,7 +20,10 @@ const TopRated = () => {
       <div className="px-3 d-flex justify-content-between align-items-end">
         <div className="align-items-end">
           <h3
-            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "bold" }}
+           style={{
+                  fontFamily: "Playfair Display, serif",
+                  fontWeight: "bold",
+                }}
           >
             Top Rated
           </h3>
@@ -87,7 +90,7 @@ const TopRated = () => {
           </button>
         </div>
       </div>
-      <Slider movies={topRated} />
+      <Slider movies={topRated} show={show} />
     </div>
   );
 };

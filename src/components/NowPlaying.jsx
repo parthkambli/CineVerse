@@ -6,6 +6,7 @@ const NowPlaying = () => {
   const { fetchNowPlaying, nowPlaying } = useContext(GlobalContext);
 
   const [show, setShow] = useState("/movie/now_playing");
+  const [s, setS] = useState("movie");
 
   useEffect(() => {
     fetchNowPlaying(show);
@@ -18,6 +19,7 @@ const NowPlaying = () => {
         ? "/tv/on_the_air"
         : "/movie/now_playing"
     );
+    setS((prevS) => (prevS === "movie" ? "tv" : "movie"));
   };
 
   return (
@@ -25,7 +27,10 @@ const NowPlaying = () => {
       <div className="px-3 d-flex justify-content-between align-items-end">
         <div className="align-items-end">
           <h3
-            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "bold" }}
+            style={{
+              fontFamily: "Playfair Display, serif",
+              fontWeight: "bold",
+            }}
           >
             Now Playing
           </h3>
@@ -92,7 +97,7 @@ const NowPlaying = () => {
           </button>
         </div>
       </div>
-      <Slider movies={nowPlaying} />
+      <Slider movies={nowPlaying} show={s} />
     </div>
   );
 };

@@ -5,31 +5,41 @@ export default (state, action) => {
       return {
         ...state,
         movies: action.payload,
-        loading: false,
+      };
+    case "MOVIE_DETAILS":
+      return {
+        ...state,
+        movie: action.payload,
       };
     case "TRENDING_MOVIES":
       return {
         ...state,
         trendingMovies: action.payload,
-        loading: false,
       };
     case "NOW_PLAYING":
       return {
         ...state,
         nowPlaying: action.payload,
-        loading: false,
       };
     case "TOP_RATED":
       return {
         ...state,
         topRated: action.payload,
-        loading: false,
       };
     case "FETCH_GENRE":
       return {
         ...state,
         genres: action.payload,
-        loading: false,
+      };
+    case "FETCH_LANGUAGES":
+      return {
+        ...state,
+        languages: action.payload,
+      };
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: action.payload,
       };
 
     default:
