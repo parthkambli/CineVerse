@@ -4,6 +4,7 @@ import { GlobalProvider } from "./context/GlobalState";
 import Detail from "./pages/Detail";
 import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Movies from "./pages/Movies";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/details" element={<Detail />} />
+            <Route path="/movies" element={<Movies />} />
           </Routes>
         </BrowserRouter>
       </div>

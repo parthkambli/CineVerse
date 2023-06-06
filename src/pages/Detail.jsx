@@ -324,7 +324,7 @@ const Detail = (deviceType) => {
                       key={index}
                       className="cast-Skeleton p-2 pt-4 text-center"
                     >
-                      <div lassName="p-2 d-flex justify-content-center align-items-center border border-3 rounded-circle">
+                      <div className="p-2 d-flex justify-content-center align-items-center border border-3 rounded-circle">
                         <Skeleton
                           circle
                           width={150}
