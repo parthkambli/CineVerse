@@ -23,11 +23,11 @@ export const GlobalProvider = ({ children }) => {
   const API_URL = "https://api.themoviedb.org/3";
 
   // Actions
-  const fetchMovies = async () => {
+  const fetchMovies = async (Show) => {
     // dispatch({ type: "FETCH_MOVIES", payload: [] });
     dispatch({ type: "SET_LOADING", payload: true });
     try {
-      const res = await axios.get(`${API_URL}/discover/movie`, {
+      const res = await axios.get(`${API_URL}/discover/${Show}`, {
         params: {
           api_key: process.env.REACT_APP_API_KEY,
         },

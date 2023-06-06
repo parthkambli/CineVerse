@@ -51,9 +51,9 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/">
+              <Link className="nav-link" to="/tv">
                 Tv Shows
-              </a>
+              </Link>
             </li>
           </ul>
           <form className="d-flex" role="search">

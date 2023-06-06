@@ -11,7 +11,7 @@ const Home = () => {
   const Image_Path = "https://image.tmdb.org/t/p/original";
 
   useEffect(() => {
-    fetchMovies();
+    fetchMovies("movie");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

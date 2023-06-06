@@ -1,15 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import MovieCard from "../components/MovieCard";
 
-const Movies = () => {
+const TvShows = () => {
   const { movies, fetchMovies } = useContext(GlobalContext);
 
   useEffect(() => {
-    fetchMovies("movie");
+    fetchMovies("tv");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <div className="container">
       <h1
@@ -19,7 +18,7 @@ const Movies = () => {
           fontWeight: "bold",
         }}
       >
-        Movies
+        TV Shows
       </h1>
       <div className="row m-0">
         {movies.map((movie) => (
@@ -32,4 +31,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default TvShows;
