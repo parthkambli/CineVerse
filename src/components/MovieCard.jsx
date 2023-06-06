@@ -68,7 +68,7 @@ const MovieCard = ({ movie, show }) => {
           </span>
         </div>
       </div>
-      <h4 className="text-center px-4 p-2">{movie.title || movie.name}</h4>
+      <h4 className="text-center px-4 m-0 mt-2">{movie.title || movie.name}</h4>
     </Link>
   );
 };

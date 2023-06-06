@@ -22,8 +22,8 @@ const TvShows = () => {
       </h1>
       <div className="row m-0">
         {movies.map((movie) => (
-          <div className="col-md-3 py-2 px-4">
-            <MovieCard key={movie.id} movie={movie} show="movie" />
+          <div key={movie.id} className="col-md-3 py-2 px-4">
+            <MovieCard movie={movie} show="movie" />
           </div>
         ))}
       </div>

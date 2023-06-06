@@ -65,8 +65,8 @@ const Slider = ({ movies, show, deviceType }) => {
           removeArrowOnDeviceType={["md", "sm", "xs"]}
         >
           {movies.map((movie) => (
-            <div className=" px-4">
-              <MovieCard key={movie.id} movie={movie} show={show} />
+            <div key={movie.id} className=" px-4">
+              <MovieCard movie={movie} show={show} />
             </div>
           ))}
         </Carousel>
