@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/Logo.png";
 import { FaSearch } from "react-icons/fa";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [searchKey, steSearchKey] = useState("");
+  const navigate = useNavigate();
+
   return (
     <nav
       className="navbar sticky-top navbar-expand-lg"
@@ -19,6 +23,7 @@ const Navbar = () => {
         >
           <img src={logo} alt="logo" height="35px" width="35px" />
           <span
+            className="ps-1"
             style={{
               fontFamily: "Playfair Display, serif",
               fontWeight: "bold",
@@ -54,12 +59,20 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <form className="d-flex" role="search">
+          <form
+            className="d-flex"
+            role="search"
+            onSubmit={() =>
+              navigate(`/search/${encodeURIComponent(searchKey)}`)
+            }
+          >
             <input
               className="form-control me-2"
               type="search"
               aria-label="Search"
               style={{ backgroundColor: "#f1f1f1" }}
+              value={searchKey}
+              onChange={(e) => steSearchKey(e.target.value)}
             />
             <button
               className="btn"

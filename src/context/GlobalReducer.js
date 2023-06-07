@@ -11,6 +11,16 @@ export default (state, action) => {
         ...state,
         movies: action.payload,
       };
+    case "SEARCH":
+      return {
+        ...state,
+        searchRes: [...state.searchRes, ...action.payload],
+      };
+    case "RESET_SEARCH":
+      return {
+        ...state,
+        searchRes: action.payload,
+      };
     case "MOVIE_DETAILS":
       return {
         ...state,

@@ -6,6 +6,7 @@ import axios from "axios";
 const initialState = {
   movies: [],
   movie: [],
+  searchRes: [],
   trendingMovies: [],
   nowPlaying: [],
   topRated: [],
@@ -53,6 +54,40 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
+  const searchFun = async (searchKey, page = 1) => {
+    dispatch({ type: "SET_LOADING", payload: true });
+    try {
+      const res = await axios.get(`${API_URL}/search/multi`, {
+        params: {
+          api_key: process.env.REACT_APP_API_KEY,
+          query: searchKey,
+          page: page,
+        },
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
+        },
+      });
+      const results = res.data.results.filter(
+        (item) => item.media_type !== "person"
+      );
+      dispatch({
+        type: "SEARCH",
+        payload: results,
+      });
+      console.log("res.data:", res.data);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    } finally {
+      dispatch({ type: "SET_LOADING", payload: false });
+    }
+  };
+
+  const resetSearch = async () => {
+    dispatch({
+      type: "RESET_SEARCH",
+      payload: [],
+    });
+  };
   const movieDetail = async (Show, Id) => {
     dispatch({ type: "MOVIE_DETAILS", payload: [] });
     dispatch({ type: "SET_LOADING", payload: true });
@@ -193,6 +228,7 @@ export const GlobalProvider = ({ children }) => {
       value={{
         movies: state.movies,
         movie: state.movie,
+        searchRes: state.searchRes,
         trendingMovies: state.trendingMovies,
         nowPlaying: state.nowPlaying,
         topRated: state.topRated,
@@ -201,6 +237,8 @@ export const GlobalProvider = ({ children }) => {
         loading: state.loading,
         fetchMovies,
         emptyMovies,
+        searchFun,
+        resetSearch,
         fetchTrendingMovies,
         fetchNowPlaying,
         fetchTopRated,

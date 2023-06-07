@@ -1,14 +1,18 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import { FaSearch } from "react-icons/fa";
 import Trending from "../components/Trending";
 import NowPlaying from "../components/NowPlaying";
 import TopRated from "../components/TopRated";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { fetchMovies, movies } = useContext(GlobalContext);
+  const navigate = useNavigate();
 
   const Image_Path = "https://image.tmdb.org/t/p/original";
+
+  const [searchKey, steSearchKey] = useState("");
 
   useEffect(() => {
     fetchMovies("movie");
@@ -55,11 +59,16 @@ const Home = () => {
               placeholder="Search"
               aria-label="Search"
               aria-describedby="search-button"
+              value={searchKey}
+              onChange={(e) => steSearchKey(e.target.value)}
             />
             <button
               className="btn rounded-end-pill fs-4 py-2 px-4"
               type="button"
               id="search-button"
+              onClick={() =>
+                navigate(`/search/${encodeURIComponent(searchKey)}`)
+              }
               style={{
                 backgroundImage:
                   "linear-gradient(to bottom right, #FF2E06, #F1D00A)",
