@@ -5,9 +5,11 @@ import { FaSearch } from "react-icons/fa";
 const Navbar = () => {
   return (
     <nav
-      className="navbar navbar-expand-lg"
-      data-bs-theme="dark"
-      style={{ backgroundColor: "#082032" }}
+      className="navbar sticky-top navbar-expand-lg"
+      style={{
+        backgroundColor: "#00111E",
+        boxShadow: "0 3px 10px black",
+      }}
     >
       <div className="container">
         <Link
