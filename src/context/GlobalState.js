@@ -23,13 +23,13 @@ export const GlobalProvider = ({ children }) => {
   const API_URL = "https://api.themoviedb.org/3";
 
   // Actions
-  const fetchMovies = async (Show) => {
-    // dispatch({ type: "FETCH_MOVIES", payload: [] });
+  const fetchMovies = async (Show, page = 1) => {
     dispatch({ type: "SET_LOADING", payload: true });
     try {
       const res = await axios.get(`${API_URL}/discover/${Show}`, {
         params: {
           api_key: process.env.REACT_APP_API_KEY,
+          page: page,
         },
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
@@ -44,6 +44,13 @@ export const GlobalProvider = ({ children }) => {
     } finally {
       dispatch({ type: "SET_LOADING", payload: false });
     }
+  };
+
+  const emptyMovies = async () => {
+    dispatch({
+      type: "EMPTY_MOVIES",
+      payload: [],
+    });
   };
 
   const movieDetail = async (Show, Id) => {
@@ -193,6 +200,7 @@ export const GlobalProvider = ({ children }) => {
         languages: state.languages,
         loading: state.loading,
         fetchMovies,
+        emptyMovies,
         fetchTrendingMovies,
         fetchNowPlaying,
         fetchTopRated,
