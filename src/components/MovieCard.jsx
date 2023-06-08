@@ -2,6 +2,7 @@ import { Circle } from "rc-progress";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalState";
+import poster from "../assets/Poster.png";
 
 const MovieCard = ({ movie, show }) => {
   const { fetchGenres, genres, movieDetail } = useContext(GlobalContext);
@@ -19,13 +20,14 @@ const MovieCard = ({ movie, show }) => {
       className="text-decoration-none text-white"
       onClick={() => movieDetail(show, movie.id)}
     >
-      <div className="card text-bg-dark border border-4 border-white rounded-4">
+      <div className="card text-bg-dark rounded-4">
         <img
-          src={`${Image_Path}${movie.poster_path}`}
-          className="img-fluid card-img rounded-4"
+          src={movie.poster_path ? `${Image_Path}${movie.poster_path}` : poster}
+          className="img-fluid card-img rounded-4 border border-4 border-white"
           alt="..."
+          style={{ height: 400 }}
         />
-        <div className="card-img-overlay p-2">
+        <div className="card-img-overlay p-2 ">
           {movie.genre_ids.map((genreId) => {
             const genre = genres.find((genre) => genre.id === genreId);
             return (

@@ -37,6 +37,7 @@ const Slider = ({ movies, show, deviceType }) => {
       {loading ? (
         <Carousel
           responsive={responsive}
+          keyBoardControl={true}
           deviceType={deviceType}
           removeArrowOnDeviceType={["md", "sm", "xs", "lg", "xl"]}
         >

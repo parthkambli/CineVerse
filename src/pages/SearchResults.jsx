@@ -40,7 +40,6 @@ const SearchResults = () => {
         hasMore={true}
         loader={<h4>Loading...</h4>}
       >
-        {console.log("length: ", searchRes.length)}
         <div className="row m-0">
           {searchRes &&
             searchRes.map((movie) => (

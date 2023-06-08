@@ -74,7 +74,6 @@ export const GlobalProvider = ({ children }) => {
         type: "SEARCH",
         payload: results,
       });
-      console.log("res.data:", res.data);
     } catch (error) {
       console.error("Error fetching movies:", error);
     } finally {
@@ -105,7 +104,6 @@ export const GlobalProvider = ({ children }) => {
         type: "MOVIE_DETAILS",
         payload: res.data,
       });
-      console.log(res.data);
     } catch (error) {
       console.error("Error fetching movies:", error);
     } finally {

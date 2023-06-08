@@ -6,6 +6,7 @@ import Carousel from "react-multi-carousel";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import profile from "../assets/Profile.png";
+import poster from "../assets/Poster.png";
 
 const Detail = (deviceType) => {
   const { movie, languages, fetchLanguages, loading } =
@@ -18,9 +19,9 @@ const Detail = (deviceType) => {
 
   useEffect(() => {
     fetchLanguages();
-    // console.log("loading state: ", loading);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(movie);
 
   const getLanguageName = (languageCode) => {
     const language = languages.find((lang) => lang.iso_639_1 === languageCode);
@@ -76,7 +77,7 @@ const Detail = (deviceType) => {
         style={{
           backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(8, 32, 50, 1)), url(${Image_Path}${movie.backdrop_path})`,
           height: "70vh",
-          backgroundPosition: "center",
+          backgroundPosition: "center ",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
@@ -91,7 +92,11 @@ const Detail = (deviceType) => {
                 />
               ) : (
                 <img
-                  src={`${Image_Path}${movie.poster_path}`}
+                  src={
+                    movie.poster_path
+                      ? `${Image_Path}${movie.poster_path}`
+                      : poster
+                  }
                   className="img-fluid card-img border border-3 border-white rounded-4"
                   alt="poster"
                 />
