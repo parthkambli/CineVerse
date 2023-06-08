@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import MovieCard from "../components/MovieCard";
 import InfiniteScroll from "react-infinite-scroll-component";
+import SkeletonCard from "../components/SkeletonCard";
 
 const TvShows = () => {
   const { movies, fetchMovies, emptyMovies } = useContext(GlobalContext);
@@ -37,7 +38,13 @@ const TvShows = () => {
         dataLength={movies.length}
         next={handleFetchMore}
         hasMore={true}
-        loader={<h4>Loading...</h4>}
+        loader=<div className="row m-0">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="col-md-3 py-2 px-4">
+              <SkeletonCard />
+            </div>
+          ))}
+        </div>
       >
         <div className="row m-0">
           {movies.map((movie) => (

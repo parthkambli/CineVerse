@@ -7,17 +7,21 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import profile from "../assets/Profile.png";
 import poster from "../assets/Poster.png";
+import { useParams } from "react-router-dom";
 
 const Detail = (deviceType) => {
-  const { movie, languages, fetchLanguages, loading } =
+  const { movieDetail, movie, languages, fetchLanguages, loading } =
     useContext(GlobalContext);
 
   const Image_Path = "https://image.tmdb.org/t/p/original";
   const Cast_Image_Path = "https://image.tmdb.org/t/p/w500";
 
-  const show = movie.episode_run_time ? "tv" : "movie";
+  const { show, id } = useParams();
+
+  // const show = movie.episode_run_time ? "tv" : "movie";
 
   useEffect(() => {
+    movieDetail(show, id);
     fetchLanguages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -87,7 +91,7 @@ const Detail = (deviceType) => {
             <div className="col-md-3 pb-3">
               {loading ? (
                 <Skeleton
-                  height={300}
+                  height={400}
                   className="img-fluid card-img border border-3 border-white rounded-4"
                 />
               ) : (

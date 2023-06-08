@@ -5,7 +5,7 @@ import { GlobalContext } from "../context/GlobalState";
 import poster from "../assets/Poster.png";
 
 const MovieCard = ({ movie, show }) => {
-  const { fetchGenres, genres, movieDetail } = useContext(GlobalContext);
+  const { fetchGenres, genres } = useContext(GlobalContext);
 
   const Image_Path = "https://image.tmdb.org/t/p/w500";
 
@@ -16,9 +16,10 @@ const MovieCard = ({ movie, show }) => {
 
   return (
     <Link
-      to="/details"
+      to={`/details/${encodeURIComponent(show)}/${encodeURIComponent(
+        movie.id
+      )}`}
       className="text-decoration-none text-white"
-      onClick={() => movieDetail(show, movie.id)}
     >
       <div className="card text-bg-dark rounded-4">
         <img
