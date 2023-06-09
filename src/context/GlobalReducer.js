@@ -26,10 +26,10 @@ export default (state, action) => {
         ...state,
         movie: action.payload,
       };
-    case "TRENDING_MOVIES":
+    case "TRENDING":
       return {
         ...state,
-        trendingMovies: action.payload,
+        trending: action.payload,
       };
     case "NOW_PLAYING":
       return {

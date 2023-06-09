@@ -3,24 +3,21 @@ import Slider from "./Slider";
 import { GlobalContext } from "../context/GlobalState";
 
 const Trending = () => {
-  const { fetchTrendingMovies, trendingMovies } = useContext(GlobalContext);
+  const { fetchTrending, trending } = useContext(GlobalContext);
 
   const [timeWindow, setTimeWindow] = useState("day");
-  const [show, setShow] = useState("movie");
+  // const [show, setShow] = useState("movie");
 
   useEffect(() => {
-    fetchTrendingMovies(timeWindow, show);
+    fetchTrending(timeWindow);
+    console.log(trending);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeWindow, show]);
+  }, [timeWindow]);
 
   const handleTimeWindowToggle = () => {
     setTimeWindow((prevTimeWindow) =>
       prevTimeWindow === "day" ? "week" : "day"
     );
-  };
-
-  const handleShowToggle = () => {
-    setShow((prevShow) => (prevShow === "movie" ? "tv" : "movie"));
   };
 
   return (
@@ -29,9 +26,9 @@ const Trending = () => {
         <div className="align-items-end">
           <h3
             style={{
-                  fontFamily: "Playfair Display, serif",
-                  fontWeight: "bold",
-                }}
+              fontFamily: "Playfair Display, serif",
+              fontWeight: "bold",
+            }}
           >
             Trending
           </h3>
@@ -98,70 +95,9 @@ const Trending = () => {
               This Week
             </button>
           </div>
-          <div
-            className="btn-group rounded-pill p-1 m-2 "
-            role="group"
-            aria-label="Show"
-            style={{ backgroundColor: "#F1F1F1" }}
-          >
-            <button
-              type="button"
-              className={"rounded-pill btn"}
-              style={
-                show === "movie"
-                  ? {
-                      fontFamily: "Montserrat, sans-serif",
-                      fontWeight: "bold",
-                      backgroundImage:
-                        "linear-gradient(to bottom right, #FF2E06, #F1D00A)",
-                      color: "#F1F1F1",
-                      border: "none",
-                      cursor: "pointer",
-                    }
-                  : {
-                      fontFamily: "Montserrat, sans-serif",
-                      fontWeight: "bold",
-                      background:
-                        "linear-gradient(to bottom right, #FF2E06, #F1D00A)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }
-              }
-              onClick={handleShowToggle}
-            >
-              Movie
-            </button>
-            <button
-              type="button"
-              className={"rounded-pill btn"}
-              style={
-                show === "tv"
-                  ? {
-                      fontFamily: "Montserrat, sans-serif",
-                      fontWeight: "bold",
-                      backgroundImage:
-                        "linear-gradient(to bottom right, #FF2E06, #F1D00A)",
-                      color: "#F1F1F1",
-                      border: "none",
-                      cursor: "pointer",
-                    }
-                  : {
-                      fontFamily: "Montserrat, sans-serif",
-                      fontWeight: "bold",
-                      background:
-                        "linear-gradient(to bottom right, #FF2E06, #F1D00A)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }
-              }
-              onClick={handleShowToggle}
-            >
-              TV
-            </button>
-          </div>
         </div>
       </div>
-      <Slider movies={trendingMovies} show={show} />
+      <Slider movies={trending} />
     </div>
   );
 };

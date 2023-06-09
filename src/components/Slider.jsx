@@ -45,7 +45,7 @@ const Slider = ({ movies, show, deviceType }) => {
           ))
         : movies.map((movie) => (
             <div key={movie.id} className=" px-4">
-              <MovieCard movie={movie} show={show} />
+              <MovieCard movie={movie} show={show || movie.media_type} />
             </div>
           ))}
     </Carousel>

@@ -7,7 +7,7 @@ const initialState = {
   movies: [],
   movie: [],
   searchRes: [],
-  trendingMovies: [],
+  trending: [],
   nowPlaying: [],
   topRated: [],
   genres: [],
@@ -111,10 +111,10 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
-  const fetchTrendingMovies = async (timeWindow, show) => {
+  const fetchTrending = async (timeWindow) => {
     dispatch({ type: "SET_LOADING", payload: true });
     try {
-      const res = await axios.get(`${API_URL}/trending/${show}/${timeWindow}`, {
+      const res = await axios.get(`${API_URL}/trending/all/${timeWindow}`, {
         params: {
           api_key: process.env.REACT_APP_API_KEY,
         },
@@ -123,7 +123,7 @@ export const GlobalProvider = ({ children }) => {
         },
       });
       dispatch({
-        type: "TRENDING_MOVIES",
+        type: "TRENDING",
         payload: res.data.results,
       });
     } catch (error) {
@@ -139,6 +139,7 @@ export const GlobalProvider = ({ children }) => {
       const res = await axios.get(`${API_URL}${show}`, {
         params: {
           api_key: process.env.REACT_APP_API_KEY,
+          media_type: "movie,tv",
         },
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
@@ -227,7 +228,7 @@ export const GlobalProvider = ({ children }) => {
         movies: state.movies,
         movie: state.movie,
         searchRes: state.searchRes,
-        trendingMovies: state.trendingMovies,
+        trending: state.trending,
         nowPlaying: state.nowPlaying,
         topRated: state.topRated,
         genres: state.genres,
@@ -237,7 +238,7 @@ export const GlobalProvider = ({ children }) => {
         emptyMovies,
         searchFun,
         resetSearch,
-        fetchTrendingMovies,
+        fetchTrending,
         fetchNowPlaying,
         fetchTopRated,
         movieDetail,
