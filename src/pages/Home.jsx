@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useMemo, useState } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import { FaSearch } from "react-icons/fa";
 import Trending from "../components/Trending";
@@ -7,7 +7,7 @@ import TopRated from "../components/TopRated";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const { fetchMovies, movies } = useContext(GlobalContext);
+  const { fetchMovies, movies, emptyMovies } = useContext(GlobalContext);
   const navigate = useNavigate();
 
   const Image_Path = "https://image.tmdb.org/t/p/original";
@@ -15,15 +15,19 @@ const Home = () => {
   const [searchKey, steSearchKey] = useState("");
 
   useEffect(() => {
+    emptyMovies();
     fetchMovies("movie");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  let randomMovie = null;
-  if (movies && movies.length > 0) {
-    const randomIndex = Math.floor(Math.random() * movies.length);
-    randomMovie = movies[randomIndex];
-  }
+  const randomMovie = useMemo(() => {
+    if (movies && movies.length > 0) {
+      const randomIndex = Math.floor(Math.random() * movies.length);
+      return movies[randomIndex];
+    }
+    return null;
+  }, [movies]);
+
   return (
     <>
       <div
@@ -83,12 +87,16 @@ const Home = () => {
         </div>
       </div>
       <div>
-        <Trending />
-        <NowPlaying />
-        <TopRated />
+        <TrendingMemo />
+        <NowPlayingMemo />
+        <TopRatedMemo />
       </div>
     </>
   );
 };
+
+const TrendingMemo = memo(Trending);
+const NowPlayingMemo = memo(NowPlaying);
+const TopRatedMemo = memo(TopRated);
 
 export default Home;

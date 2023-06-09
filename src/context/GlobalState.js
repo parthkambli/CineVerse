@@ -7,6 +7,7 @@ const initialState = {
   movies: [],
   movie: [],
   searchRes: [],
+  searchPages: 0,
   trending: [],
   nowPlaying: [],
   topRated: [],
@@ -67,12 +68,15 @@ export const GlobalProvider = ({ children }) => {
           Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
         },
       });
+      console.log(res.data);
       const results = res.data.results.filter(
         (item) => item.media_type !== "person"
       );
+      const totalPages = res.data.total_pages;
       dispatch({
         type: "SEARCH",
         payload: results,
+        totalPages: totalPages,
       });
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -87,6 +91,7 @@ export const GlobalProvider = ({ children }) => {
       payload: [],
     });
   };
+
   const movieDetail = async (Show, Id) => {
     dispatch({ type: "MOVIE_DETAILS", payload: [] });
     dispatch({ type: "SET_LOADING", payload: true });
@@ -117,6 +122,7 @@ export const GlobalProvider = ({ children }) => {
       const res = await axios.get(`${API_URL}/trending/all/${timeWindow}`, {
         params: {
           api_key: process.env.REACT_APP_API_KEY,
+          media_type: "movie,tv",
         },
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
@@ -139,7 +145,6 @@ export const GlobalProvider = ({ children }) => {
       const res = await axios.get(`${API_URL}${show}`, {
         params: {
           api_key: process.env.REACT_APP_API_KEY,
-          media_type: "movie,tv",
         },
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
@@ -228,6 +233,7 @@ export const GlobalProvider = ({ children }) => {
         movies: state.movies,
         movie: state.movie,
         searchRes: state.searchRes,
+        searchPages: state.searchPages,
         trending: state.trending,
         nowPlaying: state.nowPlaying,
         topRated: state.topRated,

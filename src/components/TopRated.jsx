@@ -6,9 +6,16 @@ const TopRated = () => {
   const { fetchTopRated, topRated } = useContext(GlobalContext);
 
   const [show, setShow] = useState("movie");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchTopRated(show);
+    const fetchData = async () => {
+      setLoading(true);
+      await fetchTopRated(show); // Pass the timeWindow as a parameter to fetchTrending
+      setLoading(false);
+    };
+
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
 
@@ -90,7 +97,7 @@ const TopRated = () => {
           </button>
         </div>
       </div>
-      <Slider movies={topRated} show={show} />
+      <Slider movies={topRated} show={show} loading={loading} />
     </div>
   );
 };

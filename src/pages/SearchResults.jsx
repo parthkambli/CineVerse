@@ -6,9 +6,12 @@ import { useParams } from "react-router-dom";
 import SkeletonCard from "../components/SkeletonCard";
 
 const SearchResults = () => {
-  const { searchRes, searchFun, resetSearch } = useContext(GlobalContext);
+  const { searchRes, searchFun, resetSearch, searchPages } =
+    useContext(GlobalContext);
+  console.log("searchPages: ", searchPages);
   const { searchKey } = useParams();
   const [page, setPage] = useState(1);
+  console.log("page: ", page);
 
   useEffect(() => {
     resetSearch();
@@ -23,7 +26,6 @@ const SearchResults = () => {
   const handleFetchMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
-
   return (
     <div className="container">
       <h1
@@ -38,7 +40,7 @@ const SearchResults = () => {
       <InfiniteScroll
         dataLength={searchRes.length}
         next={handleFetchMore}
-        hasMore={true}
+        hasMore={page === searchPages ? false : true}
         loader=<div className="row m-0">
           {Array.from({ length: 8 }).map((_, index) => (
             <div key={index} className="col-md-3 py-2 px-4">

@@ -15,6 +15,7 @@ export default (state, action) => {
       return {
         ...state,
         searchRes: [...state.searchRes, ...action.payload],
+        searchPages: action.totalPages,
       };
     case "RESET_SEARCH":
       return {

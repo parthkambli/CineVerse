@@ -1,13 +1,9 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useContext } from "react";
-import { GlobalContext } from "../context/GlobalState";
 import MovieCard from "./MovieCard";
 import SkeletonCard from "./SkeletonCard";
 
-const Slider = ({ movies, show, deviceType }) => {
-  const { loading } = useContext(GlobalContext);
-
+const Slider = ({ movies, show, deviceType, loading }) => {
   const responsive = {
     xl: {
       breakpoint: { max: 4000, min: 1200 },

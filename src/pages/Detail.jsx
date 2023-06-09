@@ -231,7 +231,7 @@ const Detail = (deviceType) => {
                   {/* Rating & Trailer */}
                   <div className="d-flex justify-content-start">
                     <div className="p-3 d-flex align-items-center">
-                      {movie.vote_average && (
+                      {movie.vote_average !== undefined && (
                         <span
                           className="p-2 rounded-circle d-flex justify-content-center align-items-center"
                           style={{

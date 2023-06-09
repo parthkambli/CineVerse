@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import Slider from "./Slider";
 import { GlobalContext } from "../context/GlobalState";
 
@@ -6,10 +6,16 @@ const Trending = () => {
   const { fetchTrending, trending } = useContext(GlobalContext);
 
   const [timeWindow, setTimeWindow] = useState("day");
-  // const [show, setShow] = useState("movie");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchTrending(timeWindow);
+    const fetchData = async () => {
+      setLoading(true);
+      await fetchTrending(timeWindow); // Pass the timeWindow as a parameter to fetchTrending
+      setLoading(false);
+    };
+
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeWindow]);
 
@@ -18,7 +24,6 @@ const Trending = () => {
       prevTimeWindow === "day" ? "week" : "day"
     );
   };
-
   return (
     <div className="container">
       <div className="px-4 pb-2 d-flex justify-content-between align-items-end">
@@ -96,9 +101,11 @@ const Trending = () => {
           </div>
         </div>
       </div>
-      <Slider movies={trending} />
+      <SliderMemo movies={trending} loading={loading} />
     </div>
   );
 };
+
+const SliderMemo = memo(Slider);
 
 export default Trending;

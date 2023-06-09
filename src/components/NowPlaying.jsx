@@ -7,9 +7,16 @@ const NowPlaying = () => {
 
   const [show, setShow] = useState("/movie/now_playing");
   const [s, setS] = useState("movie");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchNowPlaying(show);
+    const fetchData = async () => {
+      setLoading(true);
+      await fetchNowPlaying(show); // Pass the timeWindow as a parameter to fetchTrending
+      setLoading(false);
+    };
+
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
 
@@ -21,7 +28,6 @@ const NowPlaying = () => {
     );
     setS((prevS) => (prevS === "movie" ? "tv" : "movie"));
   };
-
   return (
     <div className="container">
       <div className="px-4 pb-2 d-flex justify-content-between align-items-end">
@@ -99,7 +105,7 @@ const NowPlaying = () => {
           </div>
         </div>
       </div>
-      <Slider movies={nowPlaying} show={s} />
+      <Slider movies={nowPlaying} show={s} loading={loading} />
     </div>
   );
 };
