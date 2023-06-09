@@ -44,7 +44,7 @@ const NowPlaying = () => {
           >
             <button
               type="button"
-              className={"rounded-pill btn"}
+              className={"rounded-pill btn btn-sm"}
               style={
                 show === "/movie/now_playing"
                   ? {
@@ -71,7 +71,7 @@ const NowPlaying = () => {
             </button>
             <button
               type="button"
-              className={"rounded-pill btn"}
+              className={"rounded-pill btn btn-sm"}
               style={
                 show === "/tv/on_the_air"
                   ? {

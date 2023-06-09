@@ -20,10 +20,10 @@ const TopRated = () => {
       <div className="px-4 pb-2 d-flex justify-content-between align-items-end">
         <div className="align-items-end">
           <h3
-           style={{
-                  fontFamily: "Playfair Display, serif",
-                  fontWeight: "bold",
-                }}
+            style={{
+              fontFamily: "Playfair Display, serif",
+              fontWeight: "bold",
+            }}
           >
             Top Rated
           </h3>
@@ -36,7 +36,7 @@ const TopRated = () => {
         >
           <button
             type="button"
-            className={"rounded-pill btn"}
+            className={"rounded-pill btn btn-sm"}
             style={
               show === "movie"
                 ? {
@@ -63,7 +63,7 @@ const TopRated = () => {
           </button>
           <button
             type="button"
-            className={"rounded-pill btn"}
+            className={"rounded-pill btn btn-sm"}
             style={
               show === "tv"
                 ? {

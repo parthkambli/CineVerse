@@ -29,7 +29,6 @@ const Detail = (deviceType) => {
     fetchLanguages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(movie);
 
   const getLanguageName = (languageCode) => {
     const language = languages.find((lang) => lang.iso_639_1 === languageCode);
@@ -58,7 +57,6 @@ const Detail = (deviceType) => {
 
   const renderTrailer = () => {
     const trailer = movie.videos.results.find((vid) => vid.type === "Trailer");
-    console.log("trailer", trailer);
     const key = trailer ? trailer.key : movie.videos.results[0].key;
     setTrailerKey(key);
   };

@@ -10,7 +10,6 @@ const Trending = () => {
 
   useEffect(() => {
     fetchTrending(timeWindow);
-    console.log(trending);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeWindow]);
 
@@ -42,7 +41,7 @@ const Trending = () => {
           >
             <button
               type="button"
-              className={"rounded-pill btn"}
+              className={"rounded-pill btn btn-sm"}
               style={
                 timeWindow === "day"
                   ? {
@@ -69,7 +68,7 @@ const Trending = () => {
             </button>
             <button
               type="button"
-              className={"rounded-pill btn"}
+              className={"rounded-pill btn btn-sm"}
               style={
                 timeWindow === "week"
                   ? {
