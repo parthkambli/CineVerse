@@ -68,7 +68,6 @@ export const GlobalProvider = ({ children }) => {
           Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
         },
       });
-      console.log(res.data);
       const results = res.data.results.filter(
         (item) => item.media_type !== "person"
       );

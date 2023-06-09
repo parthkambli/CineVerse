@@ -8,10 +8,8 @@ import SkeletonCard from "../components/SkeletonCard";
 const SearchResults = () => {
   const { searchRes, searchFun, resetSearch, searchPages } =
     useContext(GlobalContext);
-  console.log("searchPages: ", searchPages);
   const { searchKey } = useParams();
   const [page, setPage] = useState(1);
-  console.log("page: ", page);
 
   useEffect(() => {
     resetSearch();
