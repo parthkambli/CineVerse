@@ -1,13 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import { Circle } from "rc-progress";
 import { BiPlayCircle } from "react-icons/bi";
 import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import profile from "../assets/Profile.png";
 import poster from "../assets/Poster.png";
 import { useParams } from "react-router-dom";
+import YouTube from "react-youtube";
 
 const Detail = (deviceType) => {
   const { movieDetail, movie, languages, fetchLanguages, loading } =
@@ -17,6 +19,8 @@ const Detail = (deviceType) => {
   const Cast_Image_Path = "https://image.tmdb.org/t/p/w500";
 
   const { show, id } = useParams();
+  const [trailerKey, setTrailerKey] = useState(null);
+  const [playTrailer, setPlayTrailer] = useState(false);
 
   // const show = movie.episode_run_time ? "tv" : "movie";
 
@@ -52,6 +56,18 @@ const Detail = (deviceType) => {
     return "Unknown";
   };
 
+  const renderTrailer = () => {
+    const trailer = movie.videos.results.find((vid) => vid.type === "Trailer");
+    console.log("trailer", trailer);
+    const key = trailer ? trailer.key : movie.videos.results[0].key;
+    setTrailerKey(key);
+  };
+
+  const handlePlayTrailer = () => {
+    setPlayTrailer(true);
+    renderTrailer();
+  };
+
   const responsive = {
     xl: {
       breakpoint: { max: 4000, min: 1200 },
@@ -72,6 +88,28 @@ const Detail = (deviceType) => {
     xs: {
       breakpoint: { max: 575, min: 0 },
       items: 2,
+    },
+  };
+  const responsiveVideos = {
+    xl: {
+      breakpoint: { max: 4000, min: 1200 },
+      items: 3,
+    },
+    lg: {
+      breakpoint: { max: 1199, min: 992 },
+      items: 2,
+    },
+    md: {
+      breakpoint: { max: 991, min: 768 },
+      items: 2,
+    },
+    sm: {
+      breakpoint: { max: 767, min: 576 },
+      items: 1,
+    },
+    xs: {
+      breakpoint: { max: 575, min: 0 },
+      items: 1,
     },
   };
 
@@ -228,7 +266,11 @@ const Detail = (deviceType) => {
                           style={{
                             fontSize: "75px",
                             color: "#F1F1F1",
+                            cursor: "pointer",
                           }}
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop"
+                          onClick={handlePlayTrailer}
                         />
                       )}
                     </div>
@@ -293,6 +335,54 @@ const Detail = (deviceType) => {
                   )}
                 </div>
               </div>
+              {/* Trailer Modal */}
+              <div
+                className="modal fade"
+                id="staticBackdrop"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabIndex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true"
+              >
+                <div className="modal-dialog modal-dialog-centered modal-lg">
+                  <div className="modal-content">
+                    <div
+                      className="modal-header"
+                      style={{
+                        backgroundColor: "#00111E",
+                      }}
+                    >
+                      <h1 className="modal-title fs-5" id="staticBackdropLabel">
+                        Trailer
+                      </h1>
+                      <button
+                        type="button"
+                        className="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        onClick={() => setPlayTrailer(false)}
+                      ></button>
+                    </div>
+                    <div className="modal-body">
+                      {trailerKey && playTrailer && (
+                        <YouTube
+                          videoId={trailerKey}
+                          className="youtube"
+                          containerClassName="youtube-container"
+                          opts={{
+                            width: "100%",
+                            height: "400",
+                            playerVars: {
+                              autoplay: 1,
+                            },
+                          }}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               {/* Overview */}
               <div>
@@ -329,16 +419,13 @@ const Detail = (deviceType) => {
                   removeArrowOnDeviceType={["md", "sm", "xs", "lg", "xl"]}
                 >
                   {Array.from({ length: 7 }).map((_, index) => (
-                    <div
-                      key={index}
-                      className="cast-Skeleton p-2 pt-4 text-center"
-                    >
-                      <div className="p-2 d-flex justify-content-center align-items-center border border-3 rounded-circle">
+                    <div key={index} className="p-2 pt-4">
+                      <div className="p-2 d-flex justify-content-center align-items-center rounded-circle">
                         <Skeleton
                           circle
                           width={150}
                           height={150}
-                          className=""
+                          className="rounded-circle border border-5"
                         />
                       </div>
                       <div className="p-2">
@@ -392,6 +479,37 @@ const Detail = (deviceType) => {
                   </Carousel>
                 )
               )}
+            </div>
+            {/* Videos */}
+            <div className="col-12 pt-2">
+              <h2
+                className="p-2 pt-4"
+                style={{
+                  fontFamily: "Playfair Display, serif",
+                  fontWeight: "bold",
+                }}
+              >
+                Videos:-
+              </h2>
+              <Carousel responsive={responsiveVideos} deviceType={deviceType}>
+                {movie.videos && movie.videos.results ? (
+                  movie.videos.results.map((video) => (
+                    <div className="p-2" key={video.id}>
+                      <YouTube
+                        videoId={video.key}
+                        containerClassName="youtube-video"
+                        // className="img-fluid"
+                        opts={{
+                          width: "100%",
+                          height: "300px",
+                        }}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <div>No videos available</div>
+                )}
+              </Carousel>
             </div>
           </div>
         </div>

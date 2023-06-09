@@ -3,3 +3,18 @@ body {
   color: #f1f1f1;
   font-family: "Montserrat", sans-serif;
 }
+
+.youtube-container {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio for responsive videos */
+  position: relative;
+}
+
+.youtube-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
